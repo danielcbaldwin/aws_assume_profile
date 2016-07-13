@@ -24,6 +24,15 @@ cleanup() {
 
 # Parsing functions from: https://github.com/albfan/bash-ini-parser
 
+function debug {
+   return #abort debug
+   echo $*
+   echo --start--
+   echo "${ini[*]}"
+   echo --end--
+   echo
+}
+
 function cfg_parser {
    shopt -p extglob &> /dev/null
    CHANGE_EXTGLOB=$?
