@@ -12,7 +12,7 @@ fi
 
 AWS_CREDSFILE=~/.aws/credentials
 PREFIX="cfg_section_"
-TMP_FILE=$(mktemp)
+TMP_FILE=$(mktemp /tmp/assume_profile-XXXXXX)
 PROFILE="${1}" # Grab the first argument
 CMD="${@:2}" # Grab all args passed after the first
 trap cleanup EXIT SIGTERM SIGINT
