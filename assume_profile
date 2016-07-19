@@ -230,8 +230,6 @@ if [ -n "$role_arn" ]; then
   SESSION_TOKEN=$(cat ${TMP_FILE} | jq -r ".Credentials.SessionToken")
   EXPIRATION=$(cat ${TMP_FILE} | jq -r ".Credentials.Expiration")
 
-  echo "Retrieved temp access key ${ACCESS_KEY} for role ${role_arn}. Key will expire at ${EXPIRATION}"
-
   cleanup
 
   AWS_ACCESS_KEY_ID=${ACCESS_KEY} AWS_SECRET_ACCESS_KEY=${SECRET_KEY} AWS_SESSION_TOKEN=${SESSION_TOKEN} bash -c ${CMD}
@@ -243,7 +241,8 @@ else
     ACCESS_KEY="${aws_access_key_id}"
     SECRET_KEY="${aws_secret_access_key}"
 
-    echo "Using access key ${ACCESS_KEY} for profile ${PROFILE}"
+    AWS_ACCESS_KEY_ID=${ACCESS_KEY} AWS_SECRET_ACCESS_KEY=${SECRET_KEY} bash -c ${CMD}
+    exit 0
   else
     echo "Could not find any credentials."
     exit 1
