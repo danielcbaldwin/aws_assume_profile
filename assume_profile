@@ -233,7 +233,15 @@ if [ -n "$role_arn" ]; then
   cleanup
 
   AWS_ACCESS_KEY_ID=${ACCESS_KEY} AWS_SECRET_ACCESS_KEY=${SECRET_KEY} AWS_SESSION_TOKEN=${SESSION_TOKEN} bash -c ${CMD}
-  exit 0
+
+  # Write out so we can pull this into docker e.g. env_file
+  cat > ".aws.creds.env" <<- EOM
+AWS_ACCESS_KEY_ID=${ACCESS_KEY}
+AWS_SECRET_ACCESS_KEY=${SECRET_KEY}
+AWS_SESSION_TOKEN=${SESSION_TOKEN}
+EOM
+
+    exit 0
 else
   cleanup
 
